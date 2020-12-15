@@ -78,6 +78,25 @@ ReactDOM.render(
 );
 ```
 
+# 4. Class component
+If you use Class Component, props and state are accessible by `this.props` and `this.state`.
+In class component, The state is defined in constructor method. **this.state must be an object**
+Class component must have a `render()` function to render the DOM
+
+```
+class App extends React.Component {  
+    constructor(props){
+        super(props); // A Must
+        this.state = {
+            Key: Value
+        }
+    }
+    render() {
+        return <div>{{this.props.myProp1}}</div>
+    }
+}
+```
+
 # Other
 ### 1. <>
 render() function only takes 1 element, not 2 elements in the same level. For example:
@@ -104,3 +123,30 @@ But, it will create an empty div which is redundant after rendering in HTML. To 
 ### 2. customProp={...} vs customProp="..."
 * Use `{...}` to pass number/object 
 * Only use `"..."` to pass string
+
+### 3. `this` keyword in arrow function
+In regular functions, `this` keyword represented the object that called the function, which could be the window, the document, a button or whatever.
+
+With arrow functions, `this` keyword always represents the object which **defined** the arrow function.
+
+### 4. `.then(CALL_BACK function(response))` to consume a `promise`
+
+### 5. style={{}}
+The first bracket is a dynamic JSX expression syntax.  
+The second bracket is the object literal.
+
+Besides, since style is an object, it can contain conditional styling, for example:  
+` <div style={{color: Math.Rrandom() < 0.5 ? 'green' : 'red'}}></div>`
+
+### 6. Spread syntax
+```
+const testData = [
+    {name: "Long", id: 1},
+    {name: "Do", id: 2}
+]
+
+<Card {...testData[0]} />
+<Card {...testData[1]} />
+```
+
+Using spread syntax, all elements of testData will be `props` of Card component 
