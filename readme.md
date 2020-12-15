@@ -41,7 +41,7 @@ The FUNCTION_REFERENCE above can be:
 The FUNCTION_REFERENCE above is a reference (pointer) to a function, it does **not** invoke the function, so
 
 # 3. Props
-In short, props is used when a parent component want to pass something to other components. Something here can be a parent's state (counter),or any parent's functions (which can manipulate parent's state as well). 
+In short, props is used when a parent component want to pass something to other components. Something here can be a parent's state (counter),or any parent's functions **(WHICH IS USUALLY A FUNCTION TO CHANGE PARENT'S STATES).** 
 
 
 If you are in Component_B and want to change **state1** of Component_C, then you can't do it directly like ~~Component_C.state1 = 3~~.
@@ -98,6 +98,10 @@ class App extends React.Component {
 ```
 
 # Other
+### 0. Component design
+Before coding, look at UI to see which components we need (box, textinput, label), then we develop our **component tree**.  
+A component tree here means which component hold many components; which state/props need to be passed down for shared usage  
+In SOLID, `S` means Single Responsibility Principle. That means a component should have a single responsibility only.
 ### 1. <>
 render() function only takes 1 element, not 2 elements in the same level. For example:
 ```
@@ -150,3 +154,48 @@ const testData = [
 ```
 
 Using spread syntax, all elements of testData will be `props` of Card component 
+
+### 7. Form
+`event.preventDefault()` to prevent page reloading 
+Use `<Form>` to wrap `<input>` for form validation & required fields.
+Full example to log form input to console when hitting enter:
+```
+const Form = () => { // create custom component Form, not <form> lowercase
+    const handleSubmit = () => {
+      event.preventDefault();
+      console.log(userName);
+    }
+    const [userName, setUserName] = useState("");
+  	return (
+    	<form onSubmit={handleSubmit}>
+    	  <input type="text"
+          placeholder="Github username"
+          value={userName}
+          onChange={event => setUserName(event.target.value)}
+          />
+    	</form>
+    );
+}
+```
+### 8. Ref
+A reference variable that React create and *attach* to an HTML element. 
+
+### 9. Each child in a list would have a unique "key" prop
+React wants every child in a list to have a unique property for *sorting if possible*. So we need to have `key` prop in the list.  
+For example to render a list of Card
+```
+<div>
+    props.profile.map(profile => <Card key={profile.id} {...profile} />)
+</div>
+```
+  
+### 10. Avoid for/while in React
+Use `map` & `filter` & `reduce` instead. For example,
+```
+for(let i = 0 ; i < n ; i++) {
+    <div key={i}> Student {i}</div>
+}
+
+change into
+
+```
