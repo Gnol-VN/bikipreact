@@ -25,6 +25,7 @@ Using Babel, return <div> Hello react </div> will be
 ```
 
 # 2. State
+## 2.1. useState()
 useState() function is a HOOK, which means it hooks a stateful state into a component.   
 useState() returns a tuple of Getter and Setter.
 Inside HTML code, we can execute Javascript in curly bracket {}
@@ -39,6 +40,22 @@ The FUNCTION_REFERENCE above can be:
 * arrow function,  ex: onClick={() => console.log(Math.random())}
 
 The FUNCTION_REFERENCE above is a reference (pointer) to a function, it does **not** invoke the function, so
+
+## 2.2. useEffect()
+useEffect() is another HOOK, which is trigger everytime the component re-renders due to just one state changes.
+Always **return a function to clean the effect** when useEffect() 
+```
+useEffect(() => {
+    // Do something when component is onMount
+    ...
+
+
+    // When component is going to unMount, we need to clean the effect
+    return () => {
+        // Code to clean effect
+    }
+})
+```
 
 # 3. Props
 In short, props is used when a parent component want to pass something to other components. Something here can be a parent's state (counter),or any parent's functions **(WHICH IS USUALLY A FUNCTION TO CHANGE PARENT'S STATES).** 
@@ -190,12 +207,33 @@ For example to render a list of Card
 ```
   
 ### 10. Avoid for/while in React
-Use `map` & `filter` & `reduce` instead. For example,
+Use `map` & `filter` & `reduce` instead. For example, `map` :
 ```
 for(let i = 0 ; i < n ; i++) {
     <div key={i}> Student {i}</div>
 }
 
 change into
+[...Array(10)].map((elem, index) =>
+    <div className="star" key={index}/>
+)
 
+```
+
+### 11. To unmount / remount a component
+First, we should keep in mind that the `key` attribute is a unique identity that React uses to identify a component element.  
+That means if a key change from 1 to 2, React will see unmount `component with Key1` and mount `component with Key2`.  
+For example, to remount `ChildComponent`:
+```
+const ParentComponent = () => {
+    const [key, setKey] = useState('1');
+    const remountHandle = () => {
+        setKey(key+1)
+    }
+    
+    return
+    <> 
+        <ChildComponent key={key} />
+    </>
+}
 ```
