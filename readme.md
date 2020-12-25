@@ -237,3 +237,18 @@ const ParentComponent = () => {
     </>
 }
 ```
+
+### 12. Import / Export components and utils
+A basic component will follow:
+```
+import ... from ... // to import libraries & component
+
+const MyComponent = (props) => {
+    // states
+    
+    // return
+}
+
+export default MyComponent; // to export this component for reusing
+```
+
