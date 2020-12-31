@@ -252,3 +252,8 @@ const MyComponent = (props) => {
 export default MyComponent; // to export this component for reusing
 ```
 
+### 13. CORS
+  1. In AAD portal > Authentication, add redirect URI: https://localhost:8903
+  2. In frontend, add "proxy" : "https://localhost:8903" into package.json
+  3. In frontend, add this statement `Axios.defaults.baseURL=window.location.origin` everytime make a REST request  
+  4. In AdalConfig, redirectUri: window.location.origin, // will be resolved as https://localhost:3000  // 3 thousands
