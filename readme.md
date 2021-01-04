@@ -54,7 +54,7 @@ useEffect(() => {
     return () => {
         // Code to clean effect
     }
-})
+}, []); // This is a dependency array that every time an element changes, the useEffect() will be called again
 ```
 
 # 3. Props
